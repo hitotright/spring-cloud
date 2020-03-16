@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.hitotright.eurekaclient.dao.GoodsDao">
+
+    <resultMap type="com.github.hitotright.eurekaclient.entity.Goods" id="GoodsMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="pic" column="pic" jdbcType="VARCHAR"/>
+        <result property="desc" column="desc" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GoodsMap">
+        select
+          id, title, pic, `desc`, price
+        from test.goods
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GoodsMap">
+        select
+          id, title, pic, `desc`, price
+        from test.goods
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GoodsMap">
+        select
+          id, title, pic, `desc`, price
+        from test.goods
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="pic != null and pic != ''">
+                and pic = #{pic}
+            </if>
+            <if test="`desc` != null and `desc` != ''">
+                and `desc` = #{desc}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into test.goods(title, pic, `desc`, price)
+        values (#{title}, #{pic}, #{desc}, #{price})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update test.goods
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="pic != null and pic != ''">
+                pic = #{pic},
+            </if>
+            <if test="`desc` != null and `desc` != ''">
+                `desc` = #{desc},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from test.goods where id = #{id}
+    </delete>
+
+</mapper>
