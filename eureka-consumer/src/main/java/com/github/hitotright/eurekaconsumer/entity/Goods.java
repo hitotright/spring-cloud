@@ -72,6 +72,11 @@ public class Goods implements Serializable {
         this.price = price;
     }
 
+    public Goods(){}
+
+    public Goods(Integer id,String title,String pic,String desc,Double price){
+        this.id = id; this.title = title; this.pic = pic; this.desc = desc; this.price = price;
+    }
     @Override
     public String toString ( ) {
         return "goods:id"+this.id+",title:"+this.title+",pic:"+this.pic+",desc:"+this.desc+",price:"+this.price;

@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 public class ConsumerController {
 
     /**
-     * 和主类中@LoadBalanced重复，使用此类就要注释主类中的
+     * 普通调用 和主类中@LoadBalanced重复，使用此类就要注释主类中的
      */
     @Autowired
     LoadBalancerClient loadBalancerClient;
